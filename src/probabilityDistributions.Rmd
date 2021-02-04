@@ -1,0 +1,155 @@
+---
+title: "Probability Distributions"
+author: "Andhy Gomez"
+date: "2/02/2021"
+output: html_notebook
+---
+
+# Load libraries
+```{r}
+# Load the tidyverse
+library(tidyverse)
+library(RColorBrewer)
+library(dplyr)
+```
+
+
+```{r}
+nbaStats <- read.csv("data/nbaStats.csv")
+head(nbaStats)
+```
+
+1. Is there a disparity between any position scoring particularly more than another?
+
+```{r}
+ggplot(data = nbaStats, mapping = aes(x = Pos, y = PTS, fill = Pos)) +
+        geom_col(show.legend = FALSE) +
+  labs(title = "Points Scored per Position in the NBA",
+             x = "Position",
+             y = "Points Scored") +
+    theme_bw() + 
+  theme(
+    legend.background = element_rect(fill = "white", size = 4, colour = "white"),
+    axis.ticks = element_line(colour = "grey70", size = 0.2),
+    panel.grid.major = element_line(colour = "grey70", size = 0.2),
+    panel.grid.minor = element_blank()
+  )
+```
+
+```{r}
+cat("Calculations for Points Scored per Position in the NBA", '\n')
+
+cat("Mean: ", mean(nbaStats$PTS),'\n')
+
+cat("Median: ", median(nbaStats$PTS),'\n')
+
+cat("Standard Deviation: ", sd(nbaStats$PTS),'\n')
+
+cat("Range: ", max(nbaStats$PTS) - min(nbaStats$PTS),'\n')
+
+cat("Skew: None", '\n')
+```
+
+The distribution is more even than I would have initially believed. Certain positions are generally considered to be more responsible for high volume scoring yet the visualization shows each position has actually been relatively even over time.The values are relatively uniform.
+
+
+2. What is the distribution of 3 point shots attempted by players based on their position?
+
+```{r}
+ggplot(data = nbaStats, mapping = aes(x = Pos, y = X3PA, fill = Pos)) +
+        geom_col(show.legend = FALSE) +
+  labs(title = "3pt Attempts per Position in the NBA",
+             x = "Position",
+             y = "3pt FG Attempted") +
+    theme_bw() + 
+  theme(
+    legend.background = element_rect(fill = "white", size = 4, colour = "white"),
+    axis.ticks = element_line(colour = "grey70", size = 0.2),
+    panel.grid.major = element_line(colour = "grey70", size = 0.2),
+    panel.grid.minor = element_blank()
+  )
+```
+```{r}
+cat("Calculations for 3pt attempted Scored per Position in the NBA", '\n')
+
+cat("Mean: ", mean(nbaStats$X3PA),'\n')
+
+cat("Median: ", median(nbaStats$X3PA),'\n')
+
+cat("Standard Deviation: ", sd(nbaStats$X3PA),'\n')
+
+cat("Range: ", max(nbaStats$X3PA) - min(nbaStats$X3PA),'\n')
+
+cat("Skew: Left", '\n')
+```
+This distribution is more or less expected, big men in the NBA often don't attempt many three point field goals. There are a few who will shoot more than the average but when compared to primarily shorter positions will often shoot more.
+
+
+3. Which positions in the NBA get the most blocks?
+
+```{r}
+ggplot(data = nbaStats, mapping = aes(x = Pos, y = BLK, fill = Pos)) +
+        geom_col(show.legend = FALSE) +
+  labs(title = "Blocks per Position in the NBA",
+             x = "Position",
+             y = "Blocks") +
+  theme_bw() + 
+  theme(
+    legend.background = element_rect(fill = "white", size = 4, colour = "white"),
+    axis.ticks = element_line(colour = "grey70", size = 0.2),
+    panel.grid.major = element_line(colour = "grey70", size = 0.2),
+    panel.grid.minor = element_blank()
+  )
+```
+
+```{r}
+cat("Calculations for blocks per Position in the NBA", '\n')
+
+cat("Mean: ", mean(nbaStats$BLK),'\n')
+
+cat("Median: ", median(nbaStats$BLK),'\n')
+
+cat("Standard Deviation: ", sd(nbaStats$BLK),'\n')
+
+cat("Range: ", max(nbaStats$BLK) - min(nbaStats$BLK),'\n')
+
+cat("Skew: Right", '\n')
+```
+This distribution is relatively right skewed. In the NBA taller players will often get the most blocks. It can be seen that blocks directly correlate with the average heights of the positions seeing as it directly progresses from tallest position to shortest position (on average).
+
+
+4. How different would the number of Assists be by position given that Point Guards are considered to be the floor generals which facilitate a teams offense?
+
+```{r}
+ggplot(data = nbaStats, mapping = aes(x = Pos, y = AST, fill = Pos)) +
+        geom_col(show.legend = FALSE) +
+  labs(title = "Assists per Position in the NBA",
+             x = "Position",
+             y = "Assists") +
+  theme_bw() + 
+  theme(
+    legend.background = element_rect(fill = "white", size = 4, colour = "white"),
+    axis.ticks = element_line(colour = "grey70", size = 0.2),
+    panel.grid.major = element_line(colour = "grey70", size = 0.2),
+    panel.grid.minor = element_blank()
+  )
+```
+```{r}
+cat("Calculations for Assists per Position in the NBA", '\n')
+
+cat("Mean: ", mean(nbaStats$AST),'\n')
+
+cat("Median: ", median(nbaStats$AST),'\n')
+
+cat("Standard Deviation: ", sd(nbaStats$AST),'\n')
+
+cat("Range: ", max(nbaStats$AST) - min(nbaStats$AST),'\n')
+
+cat("Skew: Normal", '\n')
+```
+By far point guards lead in this category. Guards in general show a lead in assists whereas forwards and centers dip much further in comparison to guards.
+
+
+
+
+
